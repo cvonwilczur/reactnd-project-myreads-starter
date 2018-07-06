@@ -1,39 +1,19 @@
 import React from 'react';
-import Book from './Book';
+import Shelf from './Shelf';
 
-const Bookshelf = () => {
+const Bookshelf = (props) => {
+  let books = props.books;
+  const readBooksArray = books.filter(book => book.shelf === 'read');
+  const wantToReadBooksArray = books.filter(book => book.shelf === 'wantToRead');
+  const currentlyReadingBooksArray = books.filter(book => book.shelf === 'currentlyReading');
+
   return(
     <div className="list-books-content">
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            <li>
-              <Book />
-            </li>
-          </ol>
-        </div>
-      </div>
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">Want to Read</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            <li>
-              <Book />
-            </li>
-          </ol>
-        </div>
-      </div>
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">Want to Read</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            <li>
-              <Book />
-            </li>
-          </ol>
-        </div>
-      </div>
+    <Shelf shelfTitle='Currently Reading' books={currentlyReadingBooksArray}/>
+    <Shelf shelfTitle='Want to Read' books={wantToReadBooksArray}/>
+    <Shelf shelfTitle='Read' books={readBooksArray}/>
     </div>
   );
 }
+
+export default Bookshelf;

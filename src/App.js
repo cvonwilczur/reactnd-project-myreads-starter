@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './components/Bookshelf';
+import SearchBox from './components/SearchBox';
 
 class BooksApp extends Component {
   constructor() {
@@ -87,7 +88,7 @@ class BooksApp extends Component {
         ) : (
           <div className="list-books">
             <div className="list-books-title">
-              <h1>MyReads</h1>
+              <h1>Reader App</h1>
             </div>
             <Bookshelf books={books}/>
             <div className="open-search">

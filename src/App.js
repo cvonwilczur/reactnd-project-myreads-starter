@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './components/Bookshelf';
 import SearchBox from './components/SearchBox';
+import Shelf from './components/Shelf';
 
 class BooksApp extends Component {
   constructor() {
@@ -20,39 +21,16 @@ class BooksApp extends Component {
          id: 'a',
          authors: 'Loading',
          imageLinks: 'Loading',
-         shelf: 'read'},
-        {title: 'Loading',
-        id: 'b',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'read'},
-        {title: 'Loading',
-        id: 'c',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'read'},
-        {title: 'Loading',
-        id: 'd',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'read'},
-        {title: 'Loading',
-        id: 'e',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'wantToRead'},
-        {title: 'Loading',
-        id: 'f',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'read'},
-        {title: 'Loading',
-        id: 'g',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'currentlyReading'}
+         shelf: 'read'}
       ],
-      searchbox: ''
+      searchResults: [{
+        title: 'Loading',
+        id: 'a',
+        authors: 'Loading',
+        imageLinks: 'Loading',
+        shelf: 'read'}
+      ],
+      displaySearchResults: false
     };
   }
 
@@ -63,11 +41,16 @@ class BooksApp extends Component {
 
 
   onSearchChange = (event) => {
-    this.setState({ searchbox: event.target.value })
-    const filteredBooks = this.state.books.filter(books => {
-      return books.title.toLowerCase().includes(this.state.searchbox.toLowerCase())
-    })
-    console.log(filteredBooks);
+    const searchBox = event.target.value
+    console.log(searchBox);
+    BooksAPI.search(event.target.value)
+     .then(data => this.setState({searchResults: data}))
+    console.log(this.state.searchResults)
+    if (this.state.searchResults){
+      this.setState({displaySearchResults: true})
+    } else {
+      this.setState({displaySearchResults: false})
+    }
   }
 
   toggleSearchPage = () => {
@@ -78,7 +61,10 @@ class BooksApp extends Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchBox toggleSearchPage={this.toggleSearchPage} searchChange={this.onSearchChange}/>
+        <div>
+          <SearchBox toggleSearchPage={this.toggleSearchPage} searchChange={this.onSearchChange} searchedBooks={this.state.searchedBooks}/>
+          {this.state.displaySearchResults && <Shelf shelfName='Search Results' books={this.state.searchResults} />}
+        </div>
         ) : (
           <div className="list-books">
             <div className="list-books-title">

@@ -1,6 +1,7 @@
 import React from 'react';
+import Shelf from './Shelf';
 
-const SearchBox = ({ toggleSearchPage, searchChange, searchbox }) => {
+const SearchBox = ({ toggleSearchPage, searchChange, searchResults, displaySearchResults }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -19,7 +20,10 @@ const SearchBox = ({ toggleSearchPage, searchChange, searchbox }) => {
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">
+          <li>
+          </li>
+        </ol>
       </div>
     </div>
   )

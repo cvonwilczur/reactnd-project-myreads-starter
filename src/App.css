@@ -7,6 +7,14 @@ body {
 body, .app {
   background: white;
 }
+li {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+li div {
+  margin: 0 auto;
+}
 
 /* main page */
 
@@ -108,9 +116,10 @@ body, .app {
 .books-grid {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
 
   display: flex;
+  flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
 }

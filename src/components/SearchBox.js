@@ -1,5 +1,4 @@
 import React from 'react';
-import Shelf from './Shelf';
 
 const SearchBox = ({ toggleSearchPage, searchChange, searchResults }) => {
   return (

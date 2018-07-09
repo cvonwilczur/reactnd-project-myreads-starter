@@ -16,22 +16,8 @@ class BooksApp extends Component {
        * pages, as well as provide a good URL they can bookmark and share.
        */
       showSearchPage: false,
-      books: [
-        {title: 'Loading',
-         id: 'a',
-         authors: 'Loading',
-         imageLinks: 'Loading',
-         shelf: 'read'}
-      ],
-      searchResults: [
-        // {
-        // title: 'Loading',
-        // id: 'a',
-        // authors: 'Loading',
-        // imageLinks: 'Loading',
-        // shelf: 'read'}
-      ],
-      displaySearchResults: false
+      books: [],
+      searchResults: [],
     };
   }
 
@@ -59,7 +45,7 @@ class BooksApp extends Component {
         {this.state.showSearchPage ? (
         <div>
           <SearchBox toggleSearchPage={this.toggleSearchPage} searchChange={this.onSearchChange} searchedBooks={this.state.searchedBooks}/>
-          {this.state.searchResults && <Shelf shelfName='Search Results' books={this.state.searchResults} />}
+          <Shelf shelfTitle='Search Results' books={this.state.searchResults} />
         </div>
         ) : (
           <div className="list-books">

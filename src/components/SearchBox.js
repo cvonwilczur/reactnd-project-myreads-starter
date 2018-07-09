@@ -1,7 +1,7 @@
 import React from 'react';
 import Shelf from './Shelf';
 
-const SearchBox = ({ toggleSearchPage, searchChange, searchResults, displaySearchResults }) => {
+const SearchBox = ({ toggleSearchPage, searchChange, searchResults }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">

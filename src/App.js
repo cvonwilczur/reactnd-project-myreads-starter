@@ -23,12 +23,13 @@ class BooksApp extends Component {
          imageLinks: 'Loading',
          shelf: 'read'}
       ],
-      searchResults: [{
-        title: 'Loading',
-        id: 'a',
-        authors: 'Loading',
-        imageLinks: 'Loading',
-        shelf: 'read'}
+      searchResults: [
+        // {
+        // title: 'Loading',
+        // id: 'a',
+        // authors: 'Loading',
+        // imageLinks: 'Loading',
+        // shelf: 'read'}
       ],
       displaySearchResults: false
     };
@@ -46,11 +47,6 @@ class BooksApp extends Component {
     BooksAPI.search(event.target.value)
      .then(data => this.setState({searchResults: data}))
     console.log(this.state.searchResults)
-    if (this.state.searchResults){
-      this.setState({displaySearchResults: true})
-    } else {
-      this.setState({displaySearchResults: false})
-    }
   }
 
   toggleSearchPage = () => {
@@ -63,7 +59,7 @@ class BooksApp extends Component {
         {this.state.showSearchPage ? (
         <div>
           <SearchBox toggleSearchPage={this.toggleSearchPage} searchChange={this.onSearchChange} searchedBooks={this.state.searchedBooks}/>
-          {this.state.displaySearchResults && <Shelf shelfName='Search Results' books={this.state.searchResults} />}
+          {this.state.searchResults && <Shelf shelfName='Search Results' books={this.state.searchResults} />}
         </div>
         ) : (
           <div className="list-books">

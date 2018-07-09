@@ -51,7 +51,8 @@ class BooksApp extends Component {
         authors: 'Loading',
         imageLinks: 'Loading',
         shelf: 'currentlyReading'}
-      ]
+      ],
+      searchbox: ''
     };
   }
 
@@ -60,37 +61,30 @@ class BooksApp extends Component {
     .then(data => this.setState({ books: data }))
   }
 
+
+  onSearchChange = (event) => {
+    this.setState({ searchbox: event.target.value })
+    const filteredBooks = this.state.books.filter(books => {
+      return books.title.toLowerCase().includes(this.state.searchbox.toLowerCase())
+    })
+    console.log(filteredBooks);
+  }
+
+  toggleSearchPage = () => {
+    this.setState({ showSearchPage: false });
+  }
+
   render() {
-    const { books } = this.state;
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
-
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
+          <SearchBox toggleSearchPage={this.toggleSearchPage} searchChange={this.onSearchChange}/>
         ) : (
           <div className="list-books">
             <div className="list-books-title">
               <h1>Reader App</h1>
             </div>
-            <Bookshelf books={books}/>
+            <Bookshelf books={this.state.books}/>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
@@ -101,4 +95,4 @@ class BooksApp extends Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;

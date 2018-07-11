@@ -28,15 +28,33 @@ class BooksApp extends Component {
 
 
   onSearchChange = (event) => {
-    const searchBox = event.target.value
-    console.log(searchBox);
     BooksAPI.search(event.target.value)
      .then(data => this.setState({searchResults: data}))
-    console.log(this.state.searchResults)
   }
 
   toggleSearchPage = () => {
     this.setState({ showSearchPage: false });
+  }
+
+  changeShelf = (shelf, changedBook) => {
+    BooksAPI.update(changedBook, shelf)
+    let booksArray = this.state.books
+    let i = booksArray.findIndex((book => book.id === changedBook.id));
+
+    if (i !== -1) {
+      if (shelf === 'none') {
+        booksArray.splice(i, 1);
+      } else {
+        booksArray[i].shelf = shelf;
+      }
+    } else {
+      changedBook.shelf = shelf;
+      booksArray.push(changedBook)
+    }
+
+     // .then(data => this.setState({ books: data }))
+    // console.log(book)
+    // this.props.book.shelf = shelf;
   }
 
   render() {
@@ -52,7 +70,7 @@ class BooksApp extends Component {
             <div className="list-books-title">
               <h1>Reader App</h1>
             </div>
-            <Bookshelf books={this.state.books}/>
+            <Bookshelf changeShelf={this.changeShelf} books={this.state.books}/>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>

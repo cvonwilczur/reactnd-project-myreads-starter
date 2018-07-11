@@ -8,7 +8,7 @@ const Book = (props) => {
       <div className="book-top">
         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${imageLinks.thumbnail})` }}></div>
         <div className="book-shelf-changer">
-          <select>
+          <select onChange={(e) => props.changeShelf(e.target.value, props.book)}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

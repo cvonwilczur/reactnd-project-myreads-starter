@@ -8,6 +8,7 @@ const Shelf = (props) => {
         <Book
           key={props.books[i].id}
           book={props.books[i]}
+          changeShelf={props.changeShelf} 
         />
       )
     })

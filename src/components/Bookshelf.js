@@ -9,9 +9,9 @@ const Bookshelf = (props) => {
 
   return(
     <div className="list-books-content">
-    <Shelf shelfTitle='Currently Reading' books={currentlyReadingBooksArray}/>
-    <Shelf shelfTitle='Want to Read' books={wantToReadBooksArray}/>
-    <Shelf shelfTitle='Read' books={readBooksArray}/>
+    <Shelf changeShelf={props.changeShelf} shelfTitle='Currently Reading' books={currentlyReadingBooksArray}/>
+    <Shelf changeShelf={props.changeShelf} shelfTitle='Want to Read' books={wantToReadBooksArray}/>
+    <Shelf changeShelf={props.changeShelf} shelfTitle='Read' books={readBooksArray}/>
     </div>
   );
 }

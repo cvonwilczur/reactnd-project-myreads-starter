@@ -23,8 +23,20 @@ class BooksApp extends Component {
 
   onSearchChange = (event) => {
     BooksAPI.search(event.target.value)
-     .then(data => this.setState({searchResults: data}))
-  }
+     .then((searchedBooks) => {
+       if (searchedBooks) {
+         searchedBooks.forEach((searchedBook) => {
+           let matchedBook = this.state.books.find((book) => book.id === searchedBook.id);
+           if (matchedBook) {
+             searchedBook.shelf = matchedBook.shelf;
+           } else {
+             searchedBook.shelf = 'none';
+           }
+         });
+       }
+       this.setState({ searchResults: searchedBooks})
+     });
+  };
 
   toggleSearchPage = () => {
     this.setState({ showSearchPage: false });
@@ -32,24 +44,26 @@ class BooksApp extends Component {
 
   changeShelf = (newShelf, changedBook) => {
     BooksAPI.update(changedBook, newShelf)
-    let booksArray = this.state.books
-    let i = booksArray.findIndex((book => book.id === changedBook.id));
+     .then((data) => {
+      let booksArray = this.state.books
+      let i = booksArray.findIndex((book => book.id === changedBook.id));
 
-    if (i !== -1) {
-      if (newShelf === 'none') {
-        // if user sets to none, the matching book is spliced out of the books array
-        booksArray.splice(i, 1);
+      if (i !== -1) {
+        if (newShelf === 'none') {
+          // if user sets to none, the matching book is spliced out of the books array
+          booksArray.splice(i, 1);
+        } else {
+          //in any other circumstance, the shelf of the matched book is updated to newshelf
+          booksArray[i].shelf = newShelf;
+        }
       } else {
-        //in any other circumstance, the shelf of the matched book is updated to newshelf
-        booksArray[i].shelf = newShelf;
+        // if the book doesn't exist in the array (from search), it's pushed into the books array
+        changedBook.shelf = newShelf;
+        booksArray.push(changedBook)
       }
-    } else {
-      // if the book doesn't exist in the array (from search), it's pushed into the books array
-      changedBook.shelf = newShelf;
-      booksArray.push(changedBook)
-    }
-    this.setState({books: booksArray})
-  }
+      this.setState({books: booksArray})
+    })
+}
 
   render() {
     return (

@@ -1,10 +1,12 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom'
+
 
 const SearchBox = ({ toggleSearchPage, searchChange, searchResults }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={toggleSearchPage}>Close</a>
+        <Link exact to="/" className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
           {/*
             NOTES: The search from BooksAPI is limited to a particular set of search terms.

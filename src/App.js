@@ -54,7 +54,6 @@ class BooksApp extends Component {
       changedBook.shelf = newShelf;
       booksArray.push(changedBook)
     }
-
     this.setState({books: booksArray})
   }
 
@@ -63,15 +62,26 @@ class BooksApp extends Component {
       <div className="app">
         {this.state.showSearchPage ? (
         <div>
-          <SearchBox toggleSearchPage={this.toggleSearchPage} searchChange={this.onSearchChange} searchedBooks={this.state.searchedBooks}/>
-          <Shelf shelfTitle='Search Results' books={this.state.searchResults} />
+          <SearchBox
+            toggleSearchPage={this.toggleSearchPage}
+            searchChange={this.onSearchChange}
+            searchedBooks={this.state.searchedBooks}
+          />
+          <Shelf
+            shelfTitle='Search Results'
+            books={this.state.searchResults}
+            changeShelf={this.changeShelf}
+          />
         </div>
         ) : (
           <div className="list-books">
             <div className="list-books-title">
               <h1>Reader App</h1>
             </div>
-            <Bookshelf changeShelf={this.changeShelf} books={this.state.books}/>
+            <Bookshelf
+              changeShelf={this.changeShelf}
+              books={this.state.books}
+            />
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>

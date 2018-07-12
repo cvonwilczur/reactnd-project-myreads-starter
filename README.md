@@ -23,6 +23,13 @@ To install the project, clone the repo to your local machine.
 * Install the project files by running "npm install"
 * Start the project server by running "npm start", which will open a browser window with a live version of the project
 
+### Using the Project
+
+To use the project:
+
+* Click on the dropdown arrow on each book and select a new selection to change which shelf the book belongs to
+* Click on the + icon to add another book; when searching for a book, you can click on the dropdown arrow for the searched books and add them to your existing shelves
+
 ## Built With
 
 * React
